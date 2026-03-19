@@ -88,7 +88,7 @@ export default function ManifestoSection() {
         style={{
           ...textStyle,
           marginTop: 'clamp(16px, 2vw, 32px)',
-          color: '#737373',
+          color: '#999999',
         }}
       >
         We make moments that move people.

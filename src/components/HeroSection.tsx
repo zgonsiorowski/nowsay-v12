@@ -80,6 +80,14 @@ export default function HeroSection() {
         justifyContent: 'center',
       }}
     >
+      {/* Subtle ambient poster (visible while video loads) */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'radial-gradient(ellipse at 50% 60%, #111118 0%, #080808 50%, #000 100%)',
+        zIndex: 0,
+      }} />
+
       {/* Vimeo background video */}
       <div
         ref={videoWrapRef}
@@ -88,6 +96,7 @@ export default function HeroSection() {
           inset: 0,
           width: '100%',
           height: '100%',
+          zIndex: 1,
         }}
       >
         {/* Scale iframe to cover aspect ratio mismatch */}
@@ -122,7 +131,7 @@ export default function HeroSection() {
           position: 'absolute',
           inset: 0,
           background: 'rgba(0,0,0,0.35)',
-          zIndex: 1,
+          zIndex: 2,
         }}
       />
 
@@ -131,7 +140,7 @@ export default function HeroSection() {
         ref={textRef}
         style={{
           position: 'relative',
-          zIndex: 2,
+          zIndex: 3,
           fontFamily: "'Space Grotesk', sans-serif",
           fontSize: 'clamp(80px, 12vw, 180px)',
           fontWeight: 700,
@@ -152,7 +161,7 @@ export default function HeroSection() {
         bottom: '48px',
         left: '50%',
         transform: 'translateX(-50%)',
-        zIndex: 3,
+        zIndex: 4,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -8,12 +8,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Navigation() {
   const navRef = useRef<HTMLElement>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
 
-    // Start hidden, reveal after hero unpins (~300vh)
     gsap.set(nav, { opacity: 0, y: -10 });
 
     ScrollTrigger.create({
@@ -22,7 +22,6 @@ export default function Navigation() {
       onLeaveBack: () => gsap.to(nav, { opacity: 0, y: -10, duration: 0.4 }),
     });
 
-    // Background change on scroll
     ScrollTrigger.create({
       start: '300vh top',
       onEnter: () => { nav.style.background = 'rgba(0,0,0,0.9)'; nav.style.backdropFilter = 'blur(12px)'; },
@@ -33,9 +32,12 @@ export default function Navigation() {
   }, []);
 
   const scrollTo = (id: string) => {
+    setMobileOpen(false);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const links = ['Work', 'Services', 'Contact'];
 
   return (
     <nav
@@ -64,8 +66,10 @@ export default function Navigation() {
       }}>
         NOWSAY
       </span>
-      <div style={{ display: 'flex', gap: '40px' }}>
-        {['Work', 'Services', 'Contact'].map((label) => (
+
+      {/* Desktop links */}
+      <div className="nav-desktop" style={{ display: 'flex', gap: '40px' }}>
+        {links.map((label) => (
           <button
             key={label}
             onClick={() => scrollTo(label.toLowerCase())}
@@ -85,6 +89,90 @@ export default function Navigation() {
           </button>
         ))}
       </div>
+
+      {/* Mobile hamburger */}
+      <button
+        className="nav-hamburger"
+        onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label="Menu"
+        style={{
+          display: 'none',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          width: '32px',
+          height: '32px',
+          position: 'relative',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '6px',
+        }}
+      >
+        <span style={{
+          display: 'block',
+          width: '24px',
+          height: '2px',
+          background: 'white',
+          transition: 'all 300ms ease',
+          transform: mobileOpen ? 'rotate(45deg) translateY(4px)' : 'none',
+        }} />
+        <span style={{
+          display: 'block',
+          width: '24px',
+          height: '2px',
+          background: 'white',
+          transition: 'all 300ms ease',
+          opacity: mobileOpen ? 0 : 1,
+        }} />
+        <span style={{
+          display: 'block',
+          width: '24px',
+          height: '2px',
+          background: 'white',
+          transition: 'all 300ms ease',
+          transform: mobileOpen ? 'rotate(-45deg) translateY(-4px)' : 'none',
+        }} />
+      </button>
+
+      {/* Mobile overlay menu */}
+      {mobileOpen && (
+        <div style={{
+          position: 'fixed',
+          top: '72px',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.95)',
+          backdropFilter: 'blur(20px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '48px',
+          zIndex: 999,
+        }}>
+          {links.map((label) => (
+            <button
+              key={label}
+              onClick={() => scrollTo(label.toLowerCase())}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: '32px',
+                fontWeight: 600,
+                letterSpacing: '-0.02em',
+                color: 'white',
+                padding: '8px 0',
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }

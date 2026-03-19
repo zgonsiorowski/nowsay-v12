@@ -142,7 +142,7 @@ body {
 /* Nav link underline */
 .nav-link {
   position: relative;
-  color: var(--text-secondary-dark);
+  color: #b0b0b0;
   transition: color 200ms;
 }
 
@@ -196,4 +196,17 @@ body {
 
 .btn-pill:hover {
   background: var(--accent-hover);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .nav-desktop {
+    display: none !important;
+  }
+  .nav-hamburger {
+    display: flex !important;
+  }
+  .cursor-dot, .cursor-ring {
+    display: none !important;
+  }
 }

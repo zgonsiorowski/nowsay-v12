@@ -92,6 +92,14 @@ export default function ReelSection() {
               overflow: 'hidden',
             }}
           >
+            {/* Cinematic gradient poster (visible while video loads) */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: `radial-gradient(ellipse at ${i % 2 === 0 ? '30% 70%' : '70% 30%'}, #1a1a2e 0%, #0a0a0a 60%, #000 100%)`,
+              zIndex: 0,
+            }} />
+
             {/* Fullscreen Vimeo */}
             <div style={{
               position: 'absolute',
@@ -102,6 +110,7 @@ export default function ReelSection() {
               height: '56.25vw',
               minWidth: '100%',
               minHeight: '100%',
+              zIndex: 1,
             }}>
               <iframe
                 src={`https://player.vimeo.com/video/${project.vimeoId}?h=${project.hash}&background=1&autoplay=1&loop=1&muted=1`}
@@ -114,6 +123,7 @@ export default function ReelSection() {
                   pointerEvents: 'none',
                 }}
                 allow="autoplay; fullscreen"
+                loading="lazy"
               />
             </div>
 

@@ -6,10 +6,11 @@ export default function Footer() {
       background: '#000',
       borderTop: '1px solid #1A1A1A',
       padding: 'clamp(40px, 6vh, 64px) clamp(24px, 6vw, 120px)',
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr 1fr',
-      gap: '40px',
+      display: 'flex',
+      flexWrap: 'wrap' as const,
+      justifyContent: 'space-between',
       alignItems: 'center',
+      gap: '32px',
     }}>
       {/* Left: brand */}
       <div>
@@ -42,9 +43,6 @@ export default function Footer() {
           © {new Date().getFullYear()} Nowsay Media. All rights reserved.
         </div>
       </div>
-
-      {/* Center: empty breathing room */}
-      <div />
 
       {/* Right: social links */}
       <div style={{
