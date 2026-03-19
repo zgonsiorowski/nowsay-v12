@@ -21,11 +21,7 @@ export default function HeroSection() {
 
     // Initial state: text visible, video hidden
     gsap.set(videoWrap, { opacity: 0 });
-    gsap.set(text, { opacity: 0, letterSpacing: '-0.04em' });
-
-    // Intro animation: text fades in
-    const introTl = gsap.timeline({ delay: 0.3 });
-    introTl.to(text, { opacity: 1, duration: 1.2, ease: 'power3.out' });
+    // text starts visible (no gsap.set opacity:0 — CSS handles initial visibility)
 
     // Scroll-driven: pin for 300vh
     const scrollTl = gsap.timeline({
