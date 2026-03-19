@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+:root {
+  --bg-dark: #000000;
+  --text-primary-dark: #ffffff;
+  --text-secondary-dark: #737373;
+  --text-muted-dark: #404040;
+
+  --bg-bright: #F5F0EB;
+  --bg-bright-alt: #EDE7E0;
+  --text-primary-bright: #1A1A1A;
+  --text-secondary-bright: #6B6560;
+  --text-muted-bright: #E8E0D8;
+
+  --accent: #E8503E;
+  --accent-hover: #D4402F;
+
+  --border-dark: #1A1A1A;
+  --border-bright: #D4CFC8;
+
+  --ease-default: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-entrance: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-dramatic: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary-dark);
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Horizontal scroll reel */
+.reel-container {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Clip-path reveal base */
+.clip-reveal {
+  clip-path: inset(0 100% 0 0);
+}
+
+/* Custom cursor */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 200ms, height 200ms;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+}
+
+/* Magnetic target */
+[data-magnetic] {
+  display: inline-block;
+}
+
+/* Services accordion */
+.service-row {
+  border-bottom: 1px solid var(--border-bright);
+  overflow: hidden;
+}
+
+.service-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.service-arrow {
+  transition: transform 400ms var(--ease-default);
+  flex-shrink: 0;
+}
+
+.service-row.open .service-arrow {
+  transform: rotate(45deg);
+}
+
+.service-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 500ms var(--ease-default);
+}
+
+.service-row.open .service-body {
+  max-height: 400px;
+}
+
+/* Testimonial progress dots */
+.testimonial-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border-bright);
+  transition: background 300ms, transform 300ms;
+}
+
+.testimonial-dot.active {
+  background: var(--text-primary-bright);
+  transform: scale(1.3);
+}
+
+/* Nav link underline */
+.nav-link {
+  position: relative;
+  color: var(--text-secondary-dark);
+  transition: color 200ms;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: white;
+  transition: width 300ms var(--ease-default);
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Vimeo iframe fill */
+.vimeo-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+}
+
+/* Pill button */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 48px;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: background 200ms, transform 200ms;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-pill:hover {
+  background: var(--accent-hover);
+}
